@@ -3,8 +3,16 @@
 angular.module('visualizrApp')
 	.controller('MainCtrl', function ($scope) {
 
-		// Well Log 
-		$.getJSON("seismic.json", function(data) {
+function findMax(a, b){
+	var max = 0;
+	if(Math.abs(a) > Math.abs(b)){
+		max = Math.abs(a);
+	} else {
+		max = Math.abs(b);
+	}
+	return max;
+}		
+$.getJSON("seismic.json", function(data) {
 			//$scope.logData = logData;
 			// G3.logPlot(logData, ".seis_plot", true, "Vp");
 			// G3.logPlot(logData, ".seis_plot", false, "Vs");	
@@ -18,9 +26,11 @@ angular.module('visualizrApp')
 				max: max,
 				gain: 20,
 				skip: 20, 
-				height: 500
+				height: 500,
+				c: data.geometry.xline_min
 			}
-			g3.wiggle.init(data, ".seis_plot", options);
+			g3.wiggle.draw(options, data, ".seis_plot");
+
 			// $scope.wiggle.draw();
 			//console.log(gg);
 		});
