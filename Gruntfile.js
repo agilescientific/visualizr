@@ -273,15 +273,6 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    concat: {
-      options: {
-        separator: ';',
-      },
-      basic: {
-        src: ['app/scripts/g3/*.js'],
-        dest: 'app/scripts/g3.js',
-      },
-    },
 
     imagemin: {
       dist: {
