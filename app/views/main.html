@@ -1,8 +1,8 @@
 <div class="col-xs-3">
-<ul class="nav nav-pills nav-stacked">
-  <li class="active"><a href="#/home">Getting Started</a></li>
-  <li><a>Plot</a></li>
-  <li><a>Log</a></li>
+<ul class="nav nav-pills nav-stacked nav-fixed">
+  <li class="active"><a href="#top">Getting Started</a></li>
+  <li><a href="#plots">Plot</a></li>
+  <li><a href="#logs">Log</a></li>
   <li><a>Wiggle</a></li>
   <li><a>Canvas</a></li>
   <li><a>Seismic</a></li>
@@ -11,16 +11,335 @@
 </ul>
 </div>
 <div class="col-xs-9">
-  <div class="col-xs-12">
+
+  <!-- GETTING STARTED -->
+  <div class="col-xs-12" id="getting-started">
     <h1>Getting started</h1>
-    <div class="col-xs-12 callout callout-info">
+    <div class="col-xs-12 callout">
       <h3>About the project</h3>
-      <p>G3 is a Javascript charting library, built on top of <a href="http://d3js.org/" target="_blank">d3.js</a>. It's primary purpose is to allow easy access to dynamic in broswer geo-oriented charts.    
-      </p>
+      <p>G3 is a Javascript charting library, built on top of <a href="http://d3js.org/" target="_blank">d3.js</a>. It's primary purpose is to allow easy access to dynamic in broswer geo-oriented charts.</p>
       <p>G3 uses d3.js and jQuery as dependencies.</p>
     </div>
   </div>
+  <!-- GETTING STARTED END -->
+
+  <!-- QUICK START -->
   <div class="col-xs-12">
     <h2>Quick Start</h2>
+    <p>Finish this section when we are ready to push and have a bower and cdn version of G3 registered.
+    </p>
   </div>
+  <!-- QUICK START END -->
+
+  <!-- CONTRIBUTE -->
+  <div class="col-xs-12">
+    <h2>Contribute</h2>
+    <p>Build and work on G3 using <a href="gruntjs.com">Grunt</a></p>
+    <pre><code>// Fork G3 repo at <a href="https://github.com/agile-geoscience/g3">https://github.com/agile-geoscience/g3</a></br></br>// Build using Grunt </br>$ grunt build</br></br>// Submit pull request</code></pre>
+  </div>
+  <!-- CONTRIBUTE END -->
+
+  <!-- PLOT -->
+  <div class="col-xs-12" id="plots">
+    <h2>Plots</h2>
+    <code>g3.plot</code>
+    <h3>Example</h3>
+    <p>Plots can have a width set explicitly or will size based off of their container div</p>
+    <pre><code class="javascript hljs" highlight-block><span class="hljs-keyword">var</span> myPlot = g3.plot(<span class="hljs-string">'.plot_div'</span>)</br>  .height(400)</br>  .xDomain([0, 500])</br>  .yDomain([0, 300])</br>  .draw();</code></pre>
+  </div>
+  <div class="col-xs-12 plot_div">
+  </div>
+  <!-- PLOT END -->
+
+  <!-- PLOT OPTIONS -->
+  <div class="col-xs-12">
+    <div class="col-xs-12 callout">
+      <h3>Options</h3>
+      <p><b>Usage:</b> ('option' represents one of options from the list below)</p>
+      <code>.option(val)</code><p>sets the options attribute</p>
+      <code>.option()</code><p>retrieves the options attribute</p>
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>height</td>
+          <td>number</td>
+          <td>800</td>
+          <td>Set the height</td>
+        </tr>
+        <tr>
+          <td>width</td>
+          <td>number</td>
+          <td><code>$(elem).width() </br>   - margin.left </br>   - margin.right</code></td>
+          <td>Set the width</td>
+        </tr>
+        <tr>
+          <td>xDomain</td>
+          <td>array</td>
+          <td><code>[0, 0]</code></td>
+          <td>Set the x-domain</td>
+        </tr>
+        <tr>
+          <td>yDomain</td>
+          <td>array</td>
+          <td><code>[0, 0]</code></td>
+          <td>Set the y-domain</td>
+        </tr>
+        <tr>
+          <td>margin</td>
+          <td>object</td>
+          <td><code>{</br>top: 30,</br>right: 30,</br>bottom: 30,</br>left: 30</br>}</code></td>
+          <td>Set the margins</td>
+        </tr>
+        <tr>
+          <td>toggleXAxis</td>
+          <td>bool</td>
+          <td>true</td>
+          <td>Turn xAxis on or off</td>
+        </tr>
+        <tr>
+          <td>toggleYAxis</td>
+          <td>bool</td>
+          <td>true</td>
+          <td>Turn yAxis on or off</td>
+        </tr>
+        <tr>
+          <td>toggleX2Axis</td>
+          <td>bool</td>
+          <td>true</td>
+          <td>Turn x2Axis on or off</td>
+        </tr>
+        <tr>
+          <td>toggleY2Axis</td>
+          <td>bool</td>
+          <td>true</td>
+          <td>Turn y2Axis on or off</td>
+        </tr>
+        <tr>
+          <td>xOrient</td>
+          <td>string</td>
+          <td><span class="hljs-string">'top'</span></td>
+          <td>Orientation of titles, axis ticks</td>
+        </tr>
+        <tr>
+          <td>yOrient</td>
+          <td>string</td>
+          <td><span class="hljs-string">'left'</span></td>
+          <td>Orientation of titles, axis ticks</td>
+        </tr>
+        <tr>
+          <td>x2Orient</td>
+          <td>string</td>
+          <td><span class="hljs-string">'bottom'</span></td>
+          <td>Orientation of titles, axis ticks</td>
+        </tr>
+        <tr>
+          <td>y2Orient</td>
+          <td>string</td>
+          <td><span class="hljs-string">'right'</span></td>
+          <td>Orientation of titles, axis ticks</td>
+        </tr>
+        <tr>
+          <td>xTickFormat</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>xTick Formatting ex: ""</td>
+        </tr>
+        <tr>
+          <td>yTickFormat</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>yTick Formatting ex: ""</td>
+        </tr>
+        <tr>
+          <td>x2TickFormat</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>x2Tick Formatting ex: ""</td>
+        </tr>
+        <tr>
+          <td>y2TickFormat</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>y2Tick Formatting ex: ""</td>
+        </tr>
+        <tr>
+          <td>xTicks</td>
+          <td>number</td>
+          <td>undefined</td>
+          <td>Set the number xTicks</td>
+        </tr>
+        <tr>
+          <td>yTicks</td>
+          <td>number</td>
+          <td>undefined</td>
+          <td>Set the number yTicks</td>
+        </tr>
+        <tr>
+          <td>x2Ticks</td>
+          <td>number</td>
+          <td>undefined</td>
+          <td>Set the number x2Ticks</td>
+        </tr>
+        <tr>
+          <td>y2Ticks</td>
+          <td>number</td>
+          <td>undefined</td>
+          <td>Set the number y2Ticks</td>
+        </tr>
+        <tr>
+          <td>xTitle</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>Set the xAxis title</td>
+        </tr>
+        <tr>
+          <td>yTitle</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>Set the yAxis title</td>
+        </tr>
+        <tr>
+          <td>x2Title</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>Set the x2Axis title</td>
+        </tr>
+        <tr>
+          <td>y2Title</td>
+          <td>string</td>
+          <td>undefined</td>
+          <td>Set the y2Axis title</td>
+        </tr>
+        <tr>
+          <td>xScale</td>
+          <td><code>d3.scale()</code></td>
+          <td>undefined</td>
+          <td>Use if you want to set the scale explicitly instead of setting the domain</td>
+        </tr>
+        <tr>
+          <td>yScale</td>
+          <td><code>d3.scale()</code></td>
+          <td>undefined</td>
+          <td>Use if you want to set the scale explicitly instead of setting the domain</td>
+        </tr>
+        <tr>
+          <td>x2Scale</td>
+          <td><code>d3.scale()</code></td>
+          <td>undefined</td>
+          <td>Use if you want to set the scale explicitly instead of setting the domain</td>
+        </tr>
+        <tr>
+          <td>y2Scale</td>
+          <td><code>d3.scale()</code></td>
+          <td>undefined</td>
+          <td>Use if you want to set the scale explicitly instead of setting the domain</td>
+        </tr>
+        <tr>
+          <td>reDraw</td>
+          <td>function</td>
+          <td>n/a</td>
+          <td><code>plot.reDraw(xDomain, yDomain, x2Domain, y2Domain)</code></td>
+        </tr>
+        <tr>
+          <td>duration</td>
+          <td>number</td>
+          <td>5</td>
+          <td>Duration of redraw animation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- PLOT OPTIONS END -->
+
+  <!-- LOG -->
+  <div class="col-xs-12" id="logs">
+    <h2>Logs</h2>
+    <code>g3.log</code>
+    <h3>Example</h3>
+    <pre><code class="javascript hljs" highlight-block><span class="hljs-keyword">var</span> myLogPlot = g3.plot(<span class="hljs-string">'.log_plot_div'</span>)</br>  .height(400)</br>  .xDomain([0, 300])</br>  .yDomain([0, dataArray.length])</br>  .draw();</br></br><span class="hljs-keyword">var</span> myLog = g3.log(myLogPlot, dataArray).draw();</br></br><span class="hljs-keyword">var</span> myLog2 = g3.log(myLogPlot, dataArray)</br>   .color("black")</br>   .xMult(0.5)</br>   .xTrans(200)</br>   .draw();</code></pre>
+  </div>
+  <div class="col-xs-12 log_plot_div">
+  </div>
+  <!-- LOG END -->
+
+  <!-- LOG OPTIONS -->
+  <div class="col-xs-12">
+    <div class="col-xs-12 callout">
+      <h3>Options</h3>
+      <p><b>Usage:</b> ('option' represents one of options from the list below)</p>
+      <code>.option(val)</code><p>sets the options attribute</p>
+      <code>.option()</code><p>retrieves the options attribute</p>
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>color</td>
+          <td>hex | string</td>
+          <td>'blue'</td>
+          <td>Set the color</td>
+        </tr>
+        <tr>
+          <td>xMult</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Set the x-data multiplier</td>
+        </tr>
+        <tr>
+          <td>xTrans</td>
+          <td>number</td>
+          <td><code>g3.plot.xDomain[0]</code></td>
+          <td>Set the x-data translation</td>
+        </tr>
+        <tr>
+          <td>yMult</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Set the y-data multiplier</td>
+        </tr>
+        <tr>
+          <td>yTrans</td>
+          <td>number</td>
+          <td><code>g3.plot.yDomain[0]</code></td>
+          <td>Set the y-data translation</td>
+        </tr>
+        <tr>
+          <td>strokeWidth</td>
+          <td>number</td>
+          <td>0.25</td>
+          <td>Set the stroke-width of the log</td>
+        </tr>
+        <tr>
+          <td>reDraw</td>
+          <td>function</td>
+          <td>n/a</td>
+          <td><code>log.reDraw(newDataArray)</code></td>
+        </tr>
+        <tr>
+          <td>duration</td>
+          <td>number</td>
+          <td>5</td>
+          <td>Duration of redraw animation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- LOG OPTIONS END -->
 </div>
+<!-- HTML END -->

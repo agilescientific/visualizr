@@ -1,2 +1,1263 @@
-/*! g3 - v0.0.1 - 2015-10-05 - justinkheisler */
-"use strict";(function(t){function i(){var t={};return t}"undefined"==typeof g3&&(t.g3=i()),g3.canvas=function(t,i){return new s(t,i)};var s=function s(t,i){return i&&$.isArray(i)?t?(this._data=i,this._plot=t,this._canvas=d3.select(this._plot._elem).append("canvas").attr("width",this._data.length).attr("height",this._data[0].length).style("width",this._plot._width+"px").style("height",this._plot._height+"px").style("opacity",.95).style("top",this._plot._margin.top+"px").style("left",this._plot._margin.left+"px"),this):"Param: plot is missing, a div to attach the svg is required":"Param: data is missing, An array required"};s.prototype.style={},s.prototype.style.opacity=function(t){return void 0===t?this._style._opacity:(this._style._opacity=t,this._canvas.style("opacity",t),this)},s.prototype.gain=function(t){return void 0===t?this._gain:(this._gain=t,this)},s.prototype.colorScale=function(t){return void 0===t?this._colorScale:(this._colorScale=t,this)},s.prototype.draw=function(){return this._context=this._canvas.node().getContext("2d"),this.drawImage(),this},s.prototype.reDraw=function(t){return this._context.clearRect(0,0,this._data.length,this._data[0].length),this._canvas.attr("width",t.length).attr("height",t[0].length),this._data=t,this.drawImage(),this},s.prototype.drawImage=function(){var t=this._data.length,i=this._data[0].length;this._image=this._context.createImageData(t,i);for(var s=0,o=-1;i>s;++s)for(var r=0;t>r;++r){var e=d3.rgb(this._colorScale(this._data[r][s]*this._gain));this._image.data[++o]=e.r,this._image.data[++o]=e.g,this._image.data[++o]=e.b,this._image.data[++o]=255}return this._context.putImageData(this._image,0,0),this},g3.handle={},g3.handle.line=function(t,i,s,r,e){return new o(t,i,s,r,e)};var o=function o(t,i,s,o,r){return t?(this._plot=t,this._x=i,this._y=s,this._x2=void 0===o?i:o,this._y2=void 0===r?s:r,this):"Param: plot is missing, a div to attach the svg is required"};o.prototype._strokeWidth=30,o.prototype._stroke="black",o.prototype._cursor="pointer",o.prototype._opacity=0,o.prototype._duration=5,o.prototype.class=function(t){return void 0===t?this._class:(this._class=t,this)},o.prototype.strokeWidth=function(t){return void 0===t?this._strokeWidth:(this._strokeWidth=t,this)},o.prototype.stroke=function(t){return void 0===t?this._color:(this._color=t,this)},o.prototype.cursor=function(t){return void 0===t?this._cursor:(this._cursor=t,this)},o.prototype.opacity=function(t){return void 0===t?this._opacity:(this._opacity=t,this)},o.prototype.line=function(t){return void 0===t?this._line:(this._line=t,this)},o.prototype.draw=function(){return this._line=this._plot._svg.append("line").attr("class",this._class).style("stroke-width",this._strokeWidth).style("stroke",this._stroke).style("cursor",this._cursor).style("opacity",this._opacity).attr("x1",this._plot._xScale(this._x)).attr("y1",this._plot._yScale(this._y)).attr("x2",this._plot._xScale(this._x2)).attr("y2",this._plot._yScale(this._y2)),this},o.prototype.reDraw=function(t,i,s,o){return this._line.transition().duration(this._duration).attr("x1",this._plot._xScale(t)).attr("y1",this._plot._yScale(i)).attr("x2",this._plot._xScale(s)).attr("y2",this._plot._yScale(o)),this},g3.horizon=function(t,i){return new r(t,i)};var r=function r(t,i){return i&&$.isArray(i)?t?(this._data=i,this._plot=t,this._xMin=t._xDomain[0],this._yMin=t._yDomain[0],this):"Param: plot is missing, a div to attach the svg is required":"Param: data is missing, An array required"};r.prototype._xInt=1,r.prototype._yInt=1,r.prototype._duration=5,r.prototype._gain=1,r.prototype._interpolate="basis",r.prototype._color="green",r.prototype._strokeWidth=1.5,r.prototype._opacity=1,r.prototype.interpolate=function(t){return void 0===t?this._interpolate:(this._interpolate=t,this)},r.prototype.xMin=function(t){return void 0===t?this._xMin:(this._xMin=t,this)},r.prototype.yMin=function(t){return void 0===t?this._yMin:(this._yMin=t,this)},r.prototype.xInt=function(t){return void 0===t?this._xInt:(this._xInt=t,this)},r.prototype.yInt=function(t){return void 0===t?this._yInt:(this._yInt=t,this)},r.prototype.duration=function(t){return void 0===t?this._duration:(this._duration=t,this)},r.prototype.gain=function(t){return void 0===t?this._gain:(this._gain=t,this)},r.prototype.color=function(t){return void 0===t?this._color:(this._color=t,this)},r.prototype.strokeWidth=function(t){return void 0===t?this._strokeWidth:(this._strokeWidth=t,this)},r.prototype.opacity=function(t){return void 0===t?this._opacity:(this._opacity=t,this)},r.prototype.cursor=function(t){return void 0===t?this_cursor:(this._cursor=t,this)},r.prototype.lineFunc=function(){var t=this._plot,i=this._xMin,s=this._gain,o=this._interpolate,r=d3.svg.line().x(function(s,o){return t._xScale(o+i)}).y(function(i){return t._yScale(i*s)}).interpolate(o);return r},r.prototype.draw=function(){var t=this.lineFunc();return this._svg=this._plot._svg.append("path").attr("d",t(this._data)).attr("stroke",this._color).attr("stroke-width",this._strokeWidth).style("opacity",this._opacity).attr("fill","none"),this._cursor&&this._svg.style("cursor",this._cursor),this},r.prototype.reDraw=function(t){var i=this.lineFunc();return this._svg.transition().duration(this._duration).attr("d",i(t)),this},g3.log=function(t,i){return new e(t,i)};var e=function e(t,i){return i&&$.isArray(i)?t?(this._data=i,this._plot=t,this._xMin=t._xDomain[0],this._yMin=t._yDomain[0],this):"Param: plot is missing, a div to attach the svg is required":"Param: data is missing, An array required"};e.prototype._xInt=1,e.prototype._yInt=1,e.prototype._color="blue",e.prototype._duration=5,e.prototype._strokeWidth=.25,e.prototype.duration=function(t){return void 0===t?this._duration:(this._duration=t,this)},e.prototype.xMin=function(t){return void 0===t?this._xMin:(this._xMin=t,this)},e.prototype.xInt=function(t){return void 0===t?this._xInt:(this._xInt=t,this)},e.prototype.yMin=function(t){return void 0===t?this._yMin:(this._yMin=t,this)},e.prototype.yInt=function(t){return void 0===t?this._yInt:(this._yInt=t,this)},e.prototype.color=function(t){return void 0===t?this._color:(this._color=t,this)},e.prototype.strokeWidth=function(t){return void 0===t?this._strokeWidth:(this._strokeWidth=t,this)},e.prototype.draw=function(){var t=this.lineFunc();return this._svg=this._plot._svg.append("path").datum(this._data).attr("d",t).attr("stroke",this._color).attr("stroke-width",this._strokeWidth).attr("fill","none"),this},e.prototype.reDraw=function(t){var i=this.lineFunc();return this._svg.transition().duration(this._duration).attr("d",i(t)).ease("linear"),this},e.prototype.lineFunc=function(){var t=this._plot,i=this._yInt,s=this._yMin,o=this._interpolate;return d3.svg.line().x(function(i){return t.xScale(i)}).y(function(o,r){return t.yScale(r*i+s)}).interpolate(o)},g3.plot=function(t){return new n(t)};var n=function n(t){return t?(this._elem=t,this._margin={top:50,right:0,bottom:30,left:0},this._width=$(this._elem).width()-this._margin.left,this):"Param: elem is missing. A div to attach to is required"};n.prototype._height=800,n.prototype._xDomain=[0,0],n.prototype._yDomain=[0,0],n.prototype._xAxisVisible=!0,n.prototype._yAxisVisible=!0,n.prototype._x2AxisVisible=!0,n.prototype._y2AxisVisible=!0,n.prototype._xOrient="top",n.prototype._x2Orient="bottom",n.prototype._yOrient="left",n.prototype._y2Orient="right",n.prototype._duration=5,n.prototype.duration=function(t){return void 0===t?this._duration:(this._duration=t,this)},n.prototype.margin=function(t,i,s,o){return void 0===t?this._margin:(this._margin={top:t,right:i,bottom:s,left:o},this)},n.prototype.width=function(t){return void 0===t?this._width:(this._width=t,this)},n.prototype.height=function(t){return void 0===t?this._height:(this._height=t,this)},n.prototype.xDomain=function(t){return void 0===t?this._xDomain:(this._xDomain=t,this)},n.prototype.yDomain=function(t){return void 0===t?this._yDomain:(this._yDomain=t,this)},n.prototype.y2Domain=function(t){return void 0===t?this._y2Domain:(this._x2Domain=t,this)},n.prototype.y2Domain=function(t){return void 0===t?this._y2Domain:(this._y2Domain=t,this)},n.prototype.toggleXAxis=function(t){return void 0===t?this._xAxisVisible:(this._xAxisVisible=t,this)},n.prototype.toggleX2Axis=function(t){return void 0===t?this._x2AxisVisible:(this._x2AxisVisible=t,this)},n.prototype.toggleYAxis=function(t){return void 0===t?this._yAxisVisible:(this._yAxisVisible=t,this)},n.prototype.toggleY2Axis=function(t){return void 0===t?this._y2AxisVisible:(this._y2AxisVisible=t,this)},n.prototype.xTicks=function(t){return void 0===t?this._xTicks:(this._xTicks=t,this)},n.prototype.yTicks=function(t){return void 0===t?this._yTicks:(this._yTicks=t,this)},n.prototype.x2Ticks=function(t){return void 0===t?this._x2Ticks:(this._x2Ticks=t,this)},n.prototype.y2Ticks=function(t){return void 0===t?this._y2Ticks:(this._y2Ticks=t,this)},n.prototype.xTitle=function(t){return void 0===t?this._yTitle:(this._xTitle=t,this)},n.prototype.yTitle=function(t){return void 0===t?this._yTitle:(this._yTitle=t,this)},n.prototype.y2Title=function(t){return void 0===t?this._y2Title:(this._y2Title=t,this)},n.prototype.x2Title=function(t){return void 0===t?this._x2Title:(this._x2Title=t,this)},n.prototype.xOrient=function(t){return void 0===t?this._xOrient:(this._xOrient=t,this)},n.prototype.x2Orient=function(t){return void 0===t?this._x2Orient:(this._x2Orient=t,this)},n.prototype.yOrient=function(t){return void 0===t?this._yOrient:(this._yOrient=t,this)},n.prototype.y2Orient=function(t){return void 0===t?this._y2Orient:(this._y2Orient=t,this)},n.prototype.xTickFormat=function(t){return void 0===t?this._xTickFormat:(this._xTickFormat=t,this)},n.prototype.yTickFormat=function(t){return void 0===t?this._yTickFormat:(this._yTickFormat=t,this)},n.prototype.x2TickFormat=function(t){return void 0===t?this._x2TickFormat:(this._x2TickFormat=t,this)},n.prototype.y2TickFormat=function(t){return void 0===t?this._y2TickFormat:(this._y2TickFormat=t,this)},n.prototype.xScale=function(t){return void 0===t?this._xScale:(this._xScale=t,this)},n.prototype.x2Scale=function(t){return void 0===t?this._x2Scale:(this._x2Scale=t,this)},n.prototype.yScale=function(t){return void 0===t?this._yScale:(this._yScale=t,this)},n.prototype.y2Scale=function(t){return void 0===t?this._y2Scale:(this._y2Scale=t,this)},n.prototype.svg=function(t){return void 0===t?this._svg:(this._svg=t,this)},n.prototype.createSVG=function(){return d3.select(this._elem).append("svg").attr("class","log_plot").attr("width",this._width+this._margin.right+this._margin.left).attr("height",this._height+this._margin.bottom+this._margin.top).append("g").attr("height",this.height).attr("transform","translate("+this._margin.left+","+this._margin.top+")")},n.prototype.setScales=function(){this._xScale=d3.scale.linear().domain(this._xDomain).range([0,this._width]),this._yScale=d3.scale.linear().domain(this._yDomain).range([0,this._height]),void 0===this._x2Domain&&(this._x2Domain=this._xDomain),this._x2Scale=d3.scale.linear().domain(this._x2Domain).range([0,this._width]),void 0===this._y2Domain&&(this._y2Domain=this._yDomain),this._y2Scale=d3.scale.linear().domain(this._y2Domain).range([0,this._height])},n.prototype.createAxis=function(t,i,s,o){return d3.svg.axis().scale(t).innerTickSize(i).outerTickSize(3).tickPadding(5).orient(s).ticks(o)},n.prototype.setAxis=function(){this._xAxisVisible&&(this._xAxis=this.createAxis(this._xScale,-this._height,this._xOrient,this._xTicks),this._xAxis.tickFormat(this._xTickFormat),this._svg.append("g").attr("class","x axis").call(this._xAxis)),this._yAxisVisible&&(this._yAxis=this.createAxis(this._yScale,-this._width,this._yOrient,this._yTicks),this._yAxis.tickFormat(this._yTickFormat),this._svg.append("g").attr("class","y axis").call(this._yAxis)),this._x2AxisVisible&&(this._x2Axis=this.createAxis(this._x2Scale,-this._height,this._x2Orient,this._x2Ticks),this._x2Axis.tickFormat(this._x2TickFormat),this._svg.append("g").attr("class","x2 axis").attr("transform","translate(0,"+this._height+")").call(this._x2Axis)),this._y2AxisVisible&&(this._y2Axis=this.createAxis(this._y2Scale,-this._width,this._y2Orient,this._y2Ticks),this._y2Axis.tickFormat(this._y2TickFormat),this._svg.append("g").attr("class","y2 axis").attr("transform","translate("+this._width+",0)").call(this._y2Axis))},n.prototype.setTitles=function(){if(this._xTitle){if(""===this._xTickFormat)var t=-10;else var t=-30;this._svg.append("text").attr("x",this._width/2).attr("y",t).style("text-anchor","middle").style("font-size",12).text(this._xTitle)}if(this._yTitle){if(""===this._yTickFormat)var i=-10;else var i=-40;this._svg.append("text").attr("transform","rotate(-90)").attr("y",i).attr("dy","1em").style("text-anchor","end").style("font-size",12).text(this._yTitle)}if(this._x2Title){if(""===this._x2TickFormat)var t=10;else var t=30;this._svg.append("text").attr("transform","translate(0,"+this._height+")").attr("x",this._width/2).attr("y",t).style("text-anchor","middle").style("font-size",12).text(this._x2Title)}if(this._y2Title){if(""===this._yTickFormat)var i=-10;else var i=-40;this._svg.append("text").attr("transform","translate(0,"+this._height+")").attr("y",i).attr("dy","1em").style("text-anchor","end").style("font-size",12).text(this._y2Title)}},n.prototype.draw=function(){return this.setScales(),this._svg=this.createSVG(),this.setAxis(),this.setTitles(),this},n.prototype.reDraw=function(t,i,s,o){t&&(this._xScale.domain(t),this._svg.select(".x.axis").transition().duration(this._duration).call(this._xAxis).ease("linear")),i&&(this._yScale.domain(i),this._svg.select(".y.axis").transition().duration(this._duration).call(this._yAxis).ease("linear")),void 0===s&&(s=t),this._x2Scale.domain(s),this._svg.select(".x2.axis").transition().duration(this._duration).call(this._x2Axis).ease("linear"),void 0===o&&(o=i),this._y2Scale.domain(o),this._svg.select(".y2.axis").transition().duration(this._duration).call(this._y2Axis).ease("linear")},g3.seismic=function(t,i){return new a(t,i)};var a=function a(t,i){return i&&$.isArray(i)?t?(this._data=i,this._plot=t,this):"Param: plot is missing, a div to attach the svg is required":"Param: data is missing, An array required"};a.prototype._max=1,a.prototype._gain=1,a.prototype._duration=5,void 0===a._colorScale&&(a.prototype._colorScale=function(){return d3.scale.linear().domain([-this._max,0,this._max]).range(["#FF0000","#FFFFFF","#0000FF"])}),a.prototype.colorScale=function(t){return void 0===t?this._colorScale:(this._colorScale=t,this)},a.prototype.duration=function(t){return void 0===t?this._duration:(this._duration=t,this)},a.prototype.gain=function(t){return void 0===t?this._gain:(this._gain=t,this)},a.prototype.max=function(t){return void 0===t?this._max:(this._max=t,this)},a.prototype.draw=function(){return this._canvas=g3.canvas(this._plot,this._data).gain(this._gain).colorScale(this._colorScale).draw(),this},a.prototype.reDraw=function(t){this._canvas.gain(this._gain).reDraw(t)},g3.wiggle=function(t,i){return new h(t,i)};var h=function h(t,i){return i&&$.isArray(i)?t?(this._data=i,this._plot=t,this._xMin=t._xDomain[0],this._yMin=t._yDomain[0],this._rand=Math.floor(100*Math.random()+100),this):"Param: plot is missing, a div to attach the svg is required":"Param: data is missing, An array required"};h.prototype._skip=0,h.prototype._gain=30,h.prototype._xInt=1,h.prototype._yInt=1,h.prototype._duration=5,h.prototype._sampleRate=1,h.prototype._strokeWidth=.5,h.prototype._color="black",h.prototype._fillColor="black",h.prototype._opacity=.4,h.prototype.skip=function(t){return void 0===t?this._skip:(this._skip=t,this)},h.prototype.gain=function(t){return void 0===t?this._gain:(this._gain=t,this)},h.prototype.max=function(t){return void 0===t?this._max:(this._max=t,this)},h.prototype.xMin=function(t){return void 0===t?this._xMin:(this._xMin=t,this)},h.prototype.yMin=function(t){return void 0===t?this._yMin:(this._yMin=t,this)},h.prototype.xInt=function(t){return void 0===t?this._xInt:(this._xInt=t,this)},h.prototype.yInt=function(t){return void 0===t?this._yInt:(this._yInt=t,this)},h.prototype.fillColor=function(t){return void 0===t?this._fillColor:(this._fillColor=t,this)},h.prototype.color=function(t){return void 0===t?this._color:(this._color=t,this)},h.prototype.strokeWidth=function(t){return void 0===t?this._strokeWidth:(this._strokeWidth=t,this)},h.prototype.sampleRate=function(t){return void 0===t?this._sampleRate:(this._sampleRate=t,this)},h.prototype.duration=function(t){return void 0===t?this._duration:(this._duration=t,this)},h.prototype.opacity=function(t){return void 0===t?this._opacity:(this._opacity=t,this)},h.prototype.lineFunc=function(t){var i=this._plot,s=this._gain,o=this._xMin,r=this._sampleRate,e=this._yInt,n=this._yMin;return d3.svg.area().x(function(e){return i._xScale(e*s+o+t*r)}).y(function(t,s){return i._yScale(s*e+n)}).interpolate("basis")},h.prototype.areaFunc=function(t,i){var s=this._plot,o=this._gain,r=this._xMin,e=this._sampleRate,n=this._yMin,a=this._yInt;return d3.svg.area().x(function(){return s._xScale(i*o+r+t*e)}).y(function(t,i){return s._yScale(i*a+n)}).interpolate("basis")},h.prototype.draw=function(){for(var t=this._data.length-1;t>=0;t--)if(0===this._skip||0===t%this._skip){var i=d3.mean(this._data[t]),s=this.lineFunc(t),o=this.areaFunc(t,i);this._plot._svg.datum(this._data[t]),this._plot._svg.append("clipPath").attr("id","clip-below"+this._rand+t).append("path").attr("d",o.x0(this._plot._width));var r=this._plot,e=this._gain,n=this._xMin,a=this._sampleRate;this._plot._svg.append("path").attr("id","area-below"+t).attr("clip-path","url(#clip-below"+this._rand+t).attr("fill",this._fillColor).style("opacity",this._opacity).attr("d",o.x0(function(i){return r._xScale(i*e+n+t*a)})),this._plot._svg.append("path").attr("class","line"+t).attr("d",s(this._data[t])).attr("stroke",this._color).attr("stroke-width",this._strokeWidth).attr("fill","none")}return this},h.prototype.reDraw=function(t,i,s){this._plot._xScale.domain(i),this._plot._yScale.domain(s),this._plot._svg.select(".x.axis").transition().duration(this._duration).call(this._plot._xAxis).selectAll("text").style("text-anchor","start").attr("transform","rotate(-45)"),this._plot._svg.select(".y.axis").transition().duration(this._duration).call(this._plot._yAxis);for(var o=t.length-1;o>=0;o--)if(0===this._skip||0===o%this._skip){var r=d3.mean(t[o]);this._plot._svg.select("#clip-below"+this._rand+o).remove();var e=this.lineFunc(o),n=this.areaFunc(o,r);this._plot._svg.select(".line"+o).transition().duration(this._duration).attr("d",e(t[o])).ease("linear"),this._plot._svg.datum(t[o]),this._plot._svg.append("clipPath").attr("id","clip-below"+this._rand+o).append("path").attr("d",n.x0(this._plot._width));var a=this._plot,h=this._gain,_=this._xMin,p=this._sampleRate;this._plot._svg.select("#area-below"+o).attr("clip-path","url(#clip-below"+this._rand+o).transition().duration(this._duration).attr("d",n.x0(function(t){return a._xScale(t*h+_+o*p)})).ease("linear")}return this}})(window);
+/*! g3 - v0.0.1 - 2015-10-06 - justinkheisler */
+'use strict';
+;(function (window) {
+
+function defineg3() {
+	var g3 = {};
+	return g3;
+}
+if(typeof(g3) === 'undefined') {
+	window.g3 = defineg3();
+}
+
+const DEBUG = false;
+
+
+
+// Attach canvas creation function to g3
+g3.canvas = function(plot, data){
+  return new canvas(plot, data);
+}
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var canvas = function canvas(plot, data){
+	if(!data || !$.isArray(data)){ return 'Param: data is missing, An array required'; }
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._data = data;
+  this._plot = plot;
+  this._canvas = d3.select(this._plot._elem)
+		.append('canvas')
+    .attr('width', this._data.length)
+    .attr('height', this._data[0].length)
+    .style('width', this._plot._width +  'px')
+    .style('height', this._plot._height + 'px')
+    .style('opacity', 0.95)
+    .style('top', this._plot._margin.top + 'px')
+    .style('left', this._plot._margin.left + 'px');
+  return this;
+};
+
+canvas.prototype.style = {};
+
+canvas.prototype.style.opacity = function(opacity){
+	if(opacity === undefined){ return this._style._opacity; }
+	this._style._opacity = opacity;
+	this._canvas.style('opacity', opacity);
+	return this;
+};
+
+canvas.prototype.gain = function(gain){
+	if(gain === undefined){ return this._gain; }
+	this._gain = gain;
+	return this;
+};
+
+canvas.prototype.colorScale = function(colorScale){
+	if(colorScale === undefined){ return this._colorScale; }
+	this._colorScale = colorScale;
+	return this;
+};
+
+canvas.prototype.draw = function(){
+	this._context = this._canvas.node().getContext('2d');
+	this.drawImage();
+	return this;
+};
+
+canvas.prototype.reDraw = function(data){
+	this._context.clearRect(0, 0, this._data.length, this._data[0].length);
+	this._canvas
+    .attr('width', data.length)
+    .attr('height', data[0].length);
+  this._data = data;
+  this.drawImage();
+  return this;
+};
+
+canvas.prototype.drawImage = function(){
+	var x = this._data.length,
+			y = this._data[0].length;
+	this._image = this._context.createImageData(x,y);
+	
+	for(var i = 0, p = -1; i < y; ++ i){
+		for(var j = 0; j < x; ++j){
+			var c = d3.rgb(this._colorScale(this._data[j][i] * this._gain));
+			this._image.data[++p] = c.r;
+			this._image.data[++p] = c.g;
+			this._image.data[++p] = c.b;
+			this._image.data[++p] = 255;
+		}
+	}
+	this._context.putImageData(this._image, 0, 0);
+
+	return this;
+};
+
+g3.handle = {};
+
+g3.handle.line = function(plot, x, y, x2, y2){
+  return new line(plot, x, y, x2, y2);
+};
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var line = function line(plot, x, y, x2, y2){
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._plot = plot;
+  this._x = x;
+  this._y = y;
+
+  if(x2 === undefined){
+  	this._x2 = x;
+  } else {
+  	this._x2 = x2;
+  }
+
+  if(y2 === undefined){
+  	this._y2 = y;
+  } else {
+  	this._y2 = y2;
+  }
+  return this;
+};
+
+line.prototype._strokeWidth = 30;
+line.prototype._stroke = "black";
+line.prototype._cursor = "pointer";
+line.prototype._opacity = 0;
+line.prototype._duration = 5;
+
+line.prototype.class = function(cl){
+	if(cl === undefined){ return this._class; }
+	this._class = cl;
+	return this;
+};
+
+line.prototype.strokeWidth = function(strokeWidth){
+	if(strokeWidth === undefined){ return this._strokeWidth; }
+	this._strokeWidth = strokeWidth;
+	return this;
+};
+
+line.prototype.stroke = function(color){
+	if(color === undefined){ return this._color; }
+	this._color = color;
+	return this;
+};
+
+line.prototype.cursor = function(cursor){
+	if(cursor === undefined){ return this._cursor; }
+	this._cursor = cursor;
+	return this;
+};
+
+line.prototype.opacity = function(opacity){
+	if(opacity === undefined){ return this._opacity; }
+	this._opacity = opacity;
+	return this;
+};
+
+line.prototype.line = function(line){
+	if(line === undefined){ return this._line; }
+	this._line = line;
+	return this;
+};
+
+line.prototype.draw = function(){
+	this._line = this._plot._svg.append('line')
+		.attr('class', this._class)
+		.style('stroke-width', this._strokeWidth)
+		.style('stroke', this._stroke)
+		.style('cursor', this._cursor)
+		.style('opacity', this._opacity)
+		.attr('x1', this._plot._xScale(this._x))
+		.attr('y1', this._plot._yScale(this._y))
+		.attr('x2', this._plot._xScale(this._x2))
+		.attr('y2', this._plot._yScale(this._y2));
+	return this;
+};
+
+line.prototype.reDraw = function(x, y, x2, y2){
+	this._line
+		.transition()
+		.duration(this._duration)
+		.attr('x1', this._plot._xScale(x))
+		.attr('y1', this._plot._yScale(y))
+		.attr('x2', this._plot._xScale(x2))
+		.attr('y2', this._plot._yScale(y2));
+	return this;
+};
+
+
+
+
+// handle.circle code
+// var drag = d3.behavior.drag()  // capture mouse drag event
+//   .on('drag', oGCirRedraw);
+
+        // var position = [$scope.oGPlot.xScale($scope.offset), $scope.oGPlot.yScale($scope.twt)];
+        // $scope.oGCir = $scope.oGPlot.svg.append('circle')
+        //   .attr("class", "ogcir")
+        //   .attr("r", 5)
+        //   .attr("cx", position[0])
+        //   .attr("cy", position[1])
+        //   .style("opacity", 0.5)
+        //   .call(drag);
+
+        // $(".ogcir").mouseup(function(e){
+        //   e.preventDefault();
+        //   $scope.update_data();
+        // });
+   // } else {
+      // position = [$scope.oGPlot.xScale($scope.offset), $scope.oGPlot.yScale($scope.twt)];
+      // $scope.oGCir
+      //   .attr("cx", position[0])
+      //   .attr("cy", position[1]);
+
+
+  // function oGCirRedraw(){
+  //   var x = Math.floor($scope.oGPlot.xScale.invert(d3.event.x));
+  //   var y = Math.floor($scope.oGPlot.yScale.invert(d3.event.y));
+
+  //   // Check to make sure we are within the boundaries
+  //   if(x < 0){
+  //     x = 0;
+  //   } else if(x > $scope.data.offset_gather.length - 1) {
+  //     x = $scope.data.offset_gather.length - 1;
+  //   }
+
+  //   if(y < 0){
+  //     y = 0;
+  //   } else if(y > $scope.data.seismic[0].length - 1){
+  //     y = $scope.data.seismic[0].length - 1;
+  //   }
+
+  //   $scope.offsetStr = x.toString();
+  //   $scope.twtStr = y.toString();
+  //   $scope.changeOffsetStr();
+  //   $scope.changeTWTStr();
+  //   $scope.wGCir
+  //     .attr("cy", $scope.wGPlot.yScale($scope.twt));
+  //   $scope.vDCir
+  //     .attr("cy", $scope.vDPlot.yScale($scope.twt));
+  //   $scope.oGCir
+  //     .attr("cx", $scope.oGPlot.xScale($scope.offset))
+  //     .attr("cy", $scope.oGPlot.yScale($scope.twt));
+  // };
+
+  // Register mouseup trigger for wgcir
+// $(".wgcir").mouseup(function(e){
+//   e.preventDefault();
+//   $scope.update_data();
+// });
+// Attach horizon creation function to g3
+g3.horizon = function(plot, data){
+  return new horizon(plot, data);
+};
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var horizon = function horizon(plot, data){
+	if(!data || !$.isArray(data)){ return 'Param: data is missing, An array required'; }
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._data = data;
+  this._plot = plot;
+  this._xMin = plot._xDomain[0];
+  this._yMin = plot._yDomain[0];
+  return this;
+};
+
+// Set remaining variables
+horizon.prototype._xInt = 1;
+horizon.prototype._yInt = 1;
+horizon.prototype._duration = 5;
+horizon.prototype._gain = 1;
+horizon.prototype._interpolate = 'basis';
+horizon.prototype._color = 'green';
+horizon.prototype._strokeWidth = 1.5;
+horizon.prototype._opacity = 1;
+
+// Horizon Setting functions
+horizon.prototype.interpolate = function(interpolate){
+	if(interpolate === undefined){ return this._interpolate; }
+	this._interpolate = interpolate;
+	return this;
+};
+
+horizon.prototype.xMin = function(xMin){
+	if(xMin === undefined){ return this._xMin; }
+	this._xMin = xMin;
+	return this;
+};
+
+horizon.prototype.yMin = function(yMin){
+	if(yMin === undefined){ return this._yMin; }
+	this._yMin = yMin;
+	return this;
+};
+
+horizon.prototype.xInt = function(xInt){
+	if(xInt === undefined){ return this._xInt; }
+	this._xInt = xInt;
+	return this;
+};
+
+horizon.prototype.yInt = function(yInt){
+	if(yInt === undefined){ return this._yInt; }
+	this._yInt = yInt;
+	return this;
+};
+
+horizon.prototype.duration = function(duration){
+	if(duration === undefined){ return this._duration; }
+	this._duration = duration;
+	return this;
+};
+
+horizon.prototype.gain = function(gain){
+	if(gain === undefined){ return this._gain; }
+	this._gain = gain;
+	return this;
+};
+
+horizon.prototype.color = function(color){
+	if(color === undefined){ return this._color; }
+	this._color = color;
+	return this;
+};
+
+horizon.prototype.strokeWidth = function(strokeWidth){
+	if(strokeWidth === undefined){ return this._strokeWidth; }
+	this._strokeWidth = strokeWidth;
+	return this;
+};
+
+horizon.prototype.opacity = function(opacity){
+	if(opacity === undefined){ return this._opacity; }
+	this._opacity = opacity;
+	return this;
+};
+
+horizon.prototype.cursor = function(cursor){
+	if(cursor === undefined){ return this_cursor; }
+	this._cursor = cursor;
+	return this;
+};
+
+horizon.prototype.lineFunc = function(){
+	var plot = this._plot,
+			xMin = this._xMin,
+			gain = this._gain,
+			interpolate = this._interpolate;
+
+	var lineFunc = d3.svg.line()
+		.x(function (d, i){
+			return plot._xScale(i + xMin);
+		})
+		.y( function (d) {
+			return plot._yScale(d * gain);
+		})
+		.interpolate(interpolate);
+
+	return lineFunc;
+};
+
+// Horizon Drawing functions
+horizon.prototype.draw = function() {
+	var lineFunc = this.lineFunc();
+	this._svg = this._plot._svg.append('path')
+		.attr('d', lineFunc(this._data))
+		.attr('stroke', this._color)
+		.attr('stroke-width', this._strokeWidth)
+		.style('opacity', this._opacity)
+		.attr('fill', 'none');
+
+	if(this._cursor){
+		this._svg.style('cursor', this._cursor);
+	}
+
+	return this;
+};
+
+horizon.prototype.reDraw = function(data){
+	var lineFunc = this.lineFunc();
+	
+	this._svg.transition()
+		.duration(this._duration)
+		.attr('d', lineFunc(data));
+	return this;
+};
+
+// Attach canvas creation function to g3
+g3.log = function(plot, data){
+  return new log(plot, data);
+};
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var log = function log(plot, data){
+	if(!data || !$.isArray(data)){ return 'Param: data is missing, An array required'; }
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._data = data;
+  this._plot = plot;
+  this._xMin = plot._xDomain[0];
+  this._yMin = plot._yDomain[0];
+  return this;
+};
+
+// Set remaining variables
+log.prototype._xInt = 1;
+log.prototype._yInt = 1;
+log.prototype._color = "blue";
+log.prototype._duration = 5;
+log.prototype._strokeWidth = 0.25;
+
+// Setters 
+log.prototype.duration = function(duration){
+	if(duration === undefined){ return this._duration; }
+	this._duration = duration;
+	return this;
+};
+
+log.prototype.xTrans = function(xMin){
+	if(xMin === undefined){ return this._xMin; }
+	this._xMin = xMin;
+	return this;
+};
+
+log.prototype.xMult = function(xInt){
+	if(xInt === undefined){ return this._xInt; }
+	this._xInt = xInt;
+	return this;
+};
+
+log.prototype.yTrans = function(yMin){
+	if(yMin === undefined){ return this._yMin; }
+	this._yMin = yMin;
+	return this;
+};
+
+log.prototype.yMult = function(yInt){
+	if(yInt === undefined){ return this._yInt; }
+	this._yInt = yInt;
+	return this;
+};
+
+log.prototype.color = function(color){
+	if(color === undefined){ return this._color; }
+	this._color = color;
+	return this;
+};
+
+log.prototype.strokeWidth = function(strokeWidth){
+	if(strokeWidth === undefined){ return this._strokeWidth; }
+	this._strokeWidth = strokeWidth;
+	return this;
+};
+
+log.prototype.draw = function(){
+	var lineFunc = this.lineFunc();
+	this._svg = this._plot._svg.append('path')
+		.datum(this._data)
+		.attr('d', lineFunc)
+		.attr('stroke', this._color)
+		.attr('stroke-width', this._strokeWidth)
+		.attr('fill', 'none');
+	return this;
+};
+
+log.prototype.reDraw = function(data){
+	var lineFunc = this.lineFunc();
+	this._svg.transition()
+		.duration(this._duration)
+		.attr('d', lineFunc(data))
+		.ease('linear');
+	return this;
+};
+
+log.prototype.lineFunc = function(){
+	var plot = this._plot,
+			yInt = this._yInt,
+			yMin = this._yMin,
+			xInt = this._xInt,
+			xMin = this._xMin,
+			interpolate = this._interpolate;
+
+	return d3.svg.line()
+		.x(function (d) {
+			return plot._xScale(d * xInt + xMin);
+		})
+		.y(function (d, i){
+			return plot._yScale(i * yInt + yMin);
+		})
+		.interpolate(interpolate);
+};
+
+// var sorted = data.sort(function(a, b) {
+//   return a - b;
+// });
+
+// var focus = plot.svg.append("g")
+//     .attr("class", "focus")
+//     .style("display", "none");
+
+// focus.append("circle")
+//     .attr("r", 4.5);
+
+// focus.append("text")
+//     .attr("x", 9)
+//     .attr("dy", ".35em");
+//     var bisectDate = d3.bisector(function(d) { return d; }).left;
+// plot.svg.append("rect")
+//     .attr("class", "overlay")
+//     .attr("width", plot.width)
+//     .attr("height", plot.height)
+//     .on("mouseover", function() { focus.style("display", null); })
+//     .on("mouseout", function() { focus.style("display", "none"); })
+//     .on("mousemove", mousemove);
+
+// function mousemove() {
+//   var x0 = plot.xScale.invert(d3.mouse(this)[0]),
+//       i = bisectDate(data, x0, 1),
+//       d0 = data[i - 1],
+//       d1 = data[i],
+//       d = x0 - d0 > d1 - x0 ? d1 : d0;
+//   focus.attr("transform", "translate(" + plot.xScale(d) + "," + plot.yScale(d) + ")");
+//   focus.select("text").text(d);
+// };
+
+// Attach horizon creation function to g3
+g3.plot = function(elem){
+  return new plot(elem);
+};
+
+// Constructor
+// Only  variables that are  by items passed in, otherwise  using prototype
+var plot = function plot(elem){
+  if(!elem){ return 'Param: elem is missing. A div to attach to is required'; }
+  this._elem = elem;
+  this._margin = {top: 30, right: 30, bottom: 30, left: 30};
+  this._width = $(this._elem).width() - this._margin.left - this._margin.right;
+  return this;
+};
+
+//  Defaults
+plot.prototype._height = 800;
+// plot.prototype._margin = {top: 30, right: 30}
+plot.prototype._xDomain = [0,0];
+plot.prototype._yDomain = [0,0];
+plot.prototype._xAxisVisible = true;
+plot.prototype._yAxisVisible = true;
+plot.prototype._x2AxisVisible = true;
+plot.prototype._y2AxisVisible = true;
+plot.prototype._xOrient = 'top';
+plot.prototype._x2Orient = 'bottom';
+plot.prototype._yOrient = 'left';
+plot.prototype._y2Orient = 'right';
+plot.prototype._duration = 5;
+
+// Setters
+plot.prototype.duration = function(duration){
+  if(duration === undefined){ return this._duration; }
+  this._duration = duration;
+  return this;
+};
+
+plot.prototype.margin = function(top, right, bottom, left){
+  if(top === undefined){ return this._margin; }
+  this._margin = {top: top, right: right, bottom: bottom, left: left};
+  return this;
+};
+
+plot.prototype.width = function(width){
+  if(width === undefined){ return this._width; }
+  this._width = width;
+  return this;
+};
+
+plot.prototype.height = function(height){
+  if(height === undefined){ return this._height; }
+  this._height = height;
+  return this;
+};
+
+plot.prototype.xDomain = function(domain){
+  if(domain === undefined){ return this._xDomain; }
+  this._xDomain = domain;
+  return this;
+};
+
+plot.prototype.yDomain = function(domain){
+  if(domain === undefined){ return this._yDomain; }
+  this._yDomain = domain;
+  return this;
+};
+
+plot.prototype.y2Domain = function(domain){
+  if(domain === undefined){ return this._y2Domain; }
+  this._x2Domain = domain;
+  return this;
+};
+
+plot.prototype.y2Domain = function(domain){
+  if(domain === undefined){ return this._y2Domain; }
+  this._y2Domain = domain;
+  return this;
+};
+
+plot.prototype.toggleXAxis = function(bool){
+  if(bool === undefined){ return this._xAxisVisible; }
+  this._xAxisVisible = bool;
+  return this;
+};
+
+plot.prototype.toggleX2Axis = function(bool){
+  if(bool === undefined){ return this._x2AxisVisible; }
+  this._x2AxisVisible = bool;
+  return this;
+};
+
+plot.prototype.toggleYAxis = function(bool){
+  if(bool === undefined){ return this._yAxisVisible; }
+  this._yAxisVisible = bool;
+  return this;
+};
+
+plot.prototype.toggleY2Axis = function(bool){
+  if(bool === undefined){ return this._y2AxisVisible; }
+  this._y2AxisVisible = bool;
+  return this;
+};
+
+plot.prototype.xTicks = function(ticks){
+  if(ticks === undefined){ return this._xTicks; }
+  this._xTicks = ticks;
+  return this;
+};
+
+plot.prototype.yTicks = function(ticks){
+  if(ticks === undefined){ return this._yTicks; }
+  this._yTicks = ticks;
+  return this;
+};
+
+plot.prototype.x2Ticks = function(ticks){
+  if(ticks === undefined){ return this._x2Ticks; }
+  this._x2Ticks = ticks;
+  return this;
+};
+
+plot.prototype.y2Ticks = function(ticks){
+  if(ticks === undefined){ return this._y2Ticks; }
+  this._y2Ticks = ticks;
+  return this;
+};
+
+plot.prototype.xTitle = function(title){
+  if(title === undefined){ return this._yTitle; }
+  this._xTitle = title;
+  return this;
+};
+
+plot.prototype.yTitle = function(title){
+  if(title === undefined){ return this._yTitle; }
+  this._yTitle = title;
+  return this;
+};
+
+plot.prototype.y2Title = function(title){
+  if(title === undefined){ return this._y2Title; }
+  this._y2Title = title;
+  return this;
+};
+
+plot.prototype.x2Title = function(title){
+  if(title === undefined){ return this._x2Title; }
+  this._x2Title = title;
+  return this;
+};
+
+plot.prototype.xOrient = function(orient){
+  if(orient === undefined){ return this._xOrient; }
+  this._xOrient = orient;
+  return this;
+};
+
+plot.prototype.x2Orient = function(orient){
+  if(orient === undefined){ return this._x2Orient; }
+  this._x2Orient = orient;
+  return this;
+};
+
+plot.prototype.yOrient = function(orient){
+  if(orient === undefined){ return this._yOrient; }
+  this._yOrient = orient;
+  return this;
+};
+
+plot.prototype.y2Orient = function(orient){
+  if(orient === undefined){ return this._y2Orient; }
+  this._y2Orient = orient;
+  return this;
+};
+
+plot.prototype.xTickFormat = function(format){
+  if(format === undefined){ return this._xTickFormat; }
+  this._xTickFormat = format;
+  return this;
+};
+
+plot.prototype.yTickFormat = function(format){
+  if(format === undefined){ return this._yTickFormat; }
+  this._yTickFormat = format;
+  return this;
+};
+
+plot.prototype.x2TickFormat = function(format){
+  if(format === undefined){ return this._x2TickFormat; }
+  this._x2TickFormat = format;
+  return this;
+};
+
+plot.prototype.y2TickFormat = function(format){
+  if(format === undefined){ return this._y2TickFormat; }
+  this._y2TickFormat = format;
+  return this;
+};
+
+plot.prototype.xScale = function(scale){
+  if(scale === undefined){ return this._xScale; }
+  this._xScale = scale;
+  return this;
+};
+
+plot.prototype.x2Scale = function(scale){
+  if(scale === undefined){ return this._x2Scale; }
+  this._x2Scale = scale;
+  return this;
+};
+
+plot.prototype.yScale = function(scale){
+  if(scale === undefined){ return this._yScale; }
+  this._yScale = scale;
+  return this;
+};
+
+plot.prototype.y2Scale = function(scale){
+  if(scale === undefined){ return this._y2Scale; }
+  this._y2Scale = scale;
+  return this;
+};
+
+plot.prototype.svg = function(svg){
+  if(svg === undefined){ return this._svg; }
+  this._svg = svg;
+  return this;
+};
+
+plot.prototype.createSVG = function(){
+  // Append svg object to dom element
+  return d3.select(this._elem).append('svg')
+    .attr('class', 'log_plot')
+    .attr('width', this._width + this._margin.right + this._margin.left)
+    .attr('height', this._height + this._margin.bottom + this._margin.top) 
+    .append('g')
+    .attr('height', this.height)
+    .attr('transform', 'translate(' + this._margin.left + ',' + this._margin.top + ')');
+};
+
+plot.prototype.setScales = function(){
+  this._xScale = d3.scale.linear()
+    .domain(this._xDomain)
+    .range([0, this._width]);
+
+  this._yScale = d3.scale.linear()
+    .domain(this._yDomain)
+    .range([0, this._height]);
+
+  if(this._x2Domain === undefined){ 
+    this._x2Domain = this._xDomain;
+  }
+  this._x2Scale = d3.scale.linear()
+    .domain(this._x2Domain)
+    .range([0, this._width]);
+
+  if(this._y2Domain === undefined){
+    this._y2Domain = this._yDomain;
+  }
+  this._y2Scale = d3.scale.linear()
+    .domain(this._y2Domain)
+    .range([0, this._height]);
+};
+
+plot.prototype.createAxis = function(scale, innerTickSize, orient, ticks){
+  return d3.svg.axis()
+    .scale(scale)
+    .innerTickSize(innerTickSize)
+    .outerTickSize(3)
+    .tickPadding(5)
+    .orient(orient)
+    .ticks(ticks);
+};
+
+plot.prototype.setAxis = function(){
+  if(this._xAxisVisible){
+    this._xAxis = this.createAxis(this._xScale, -this._height, this._xOrient, this._xTicks);
+    this._xAxis.tickFormat(this._xTickFormat);
+    this._svg.append('g')
+      .attr('class', 'x axis')
+      .call(this._xAxis);
+  }
+  if(this._yAxisVisible){
+    this._yAxis = this.createAxis(this._yScale, -this._width, this._yOrient, this._yTicks);
+    this._yAxis.tickFormat(this._yTickFormat);
+    this._svg.append('g')
+      .attr('class', 'y axis')
+      .call(this._yAxis);
+  }
+  if(this._x2AxisVisible){
+    this._x2Axis = this.createAxis(this._x2Scale, -this._height, this._x2Orient, this._x2Ticks);
+    this._x2Axis.tickFormat(this._x2TickFormat);
+    this._svg.append('g')
+      .attr('class', 'x2 axis')
+      .attr("transform", "translate(" + "0," + this._height + ")")
+      .call(this._x2Axis);
+  }
+  if(this._y2AxisVisible){
+    this._y2Axis = this.createAxis(this._y2Scale, -this._width, this._y2Orient, this._y2Ticks);
+    this._y2Axis.tickFormat(this._y2TickFormat);
+    this._svg.append('g')
+      .attr('class', 'y2 axis')
+      .attr("transform", "translate(" + this._width + ",0)")
+      .call(this._y2Axis);
+  }
+};
+
+plot.prototype.setTitles = function(){
+  if(this._xTitle){
+    if(this._xTickFormat === ""){
+      var margin = -10;
+    } else {
+      var margin = -30;
+    }
+    this._svg.append("text")
+      .attr("x", (this._width) / 2)
+      .attr("y", margin)
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+      .text(this._xTitle);
+  }
+
+  if(this._yTitle){
+    if(this._yTickFormat === ""){
+      var yMargin = -10;
+    } else {
+      var yMargin = -40;
+    }
+
+    this._svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", yMargin)
+      .attr("dy", "1em")
+      .style("text-anchor", "end")
+      .style("font-size", 12)
+      .text(this._yTitle);
+  }
+
+  if(this._x2Title){
+    if(this._x2TickFormat === ""){
+      var margin = 10;
+    } else {
+      var margin = 30;
+    }
+
+    this._svg.append("text")
+      .attr("transform", "translate(" + "0," + this._height + ")")
+      .attr("x", (this._width) / 2)
+      .attr("y", margin)
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+      .text(this._x2Title);
+  }
+
+  if(this._y2Title){
+    if(this._yTickFormat === ""){
+      var yMargin = -10;
+    } else {
+      var yMargin = -40;
+    }
+
+    this._svg.append("text")
+      .attr("transform", "translate(" + "0," + this._height + ")")
+      .attr("y", yMargin)
+      .attr("dy", "1em")
+      .style("text-anchor", "end")
+      .style("font-size", 12)
+      .text(this._y2Title);
+  }
+};
+
+plot.prototype.draw = function() {
+  this.setScales();
+  this._svg = this.createSVG();
+  this.setAxis();
+  this.setTitles();
+  return this;
+};
+
+plot.prototype.reDraw = function(xDomain, yDomain, x2Domain, y2Domain){    
+  if(xDomain){
+    this._xScale.domain(xDomain);
+    this._svg.select('.x.axis')
+      .transition()
+      .duration(this._duration)
+      .call(this._xAxis)
+      .ease('linear');
+  }
+
+  if(yDomain){
+    this._yScale.domain(yDomain);
+    this._svg.select('.y.axis')
+      .transition()
+      .duration(this._duration)
+      .call(this._yAxis)
+      .ease('linear');
+  }
+
+  if(x2Domain === undefined){
+      x2Domain = xDomain;
+  }
+  this._x2Scale.domain(x2Domain);
+  this._svg.select('.x2.axis')
+    .transition()
+    .duration(this._duration)
+    .call(this._x2Axis)
+    .ease('linear');
+
+  if(y2Domain === undefined){
+    y2Domain = yDomain;
+  }
+  this._y2Scale.domain(y2Domain);
+  this._svg.select('.y2.axis')
+    .transition()
+    .duration(this._duration)
+    .call(this._y2Axis)
+    .ease('linear');
+};
+
+// Attach seismic creation function to g3
+g3.seismic = function(plot, data){
+  return new seismic(plot, data);
+};
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var seismic = function seismic(plot, data){
+	if(!data || !$.isArray(data)){ return 'Param: data is missing, An array required'; }
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._data = data;
+  this._plot = plot;
+  return this;
+};
+
+// Set remaining variables
+seismic.prototype._max = 1;
+seismic.prototype._gain = 1;
+seismic.prototype._duration = 5;
+
+// Default Color Scale
+if(seismic._colorScale === undefined){
+	seismic.prototype._colorScale = function(){
+		return d3.scale.linear()
+			.domain([-this._max, 0, this._max])
+			.range(['#FF0000', '#FFFFFF', '#0000FF']);
+	};
+}
+
+// Setters
+seismic.prototype.colorScale = function(colorScale){
+	if(colorScale === undefined){ return this._colorScale; }
+	this._colorScale = colorScale;
+	return this;
+};
+
+seismic.prototype.duration = function(duration){
+	if(duration === undefined){ return this._duration; }
+	this._duration = duration;
+	return this;
+};
+
+seismic.prototype.gain = function(gain){
+	if(gain === undefined){ return this._gain; }
+	this._gain = gain;
+	return this;
+};
+
+seismic.prototype.max = function(max){
+	if(max === undefined){ return this._max; }
+	this._max = max;
+	return this;
+};
+
+// Draw method
+seismic.prototype.draw = function(){
+	this._canvas = g3.canvas(this._plot, this._data)
+		.gain(this._gain)
+		.colorScale(this._colorScale)
+		.draw();
+  return this;
+};
+
+seismic.prototype.reDraw = function(data){
+	this._canvas.gain(this._gain)
+	.reDraw(data);
+};
+
+// Attach horizon creation function to g3
+g3.wiggle = function(plot, data){
+  return new wiggle(plot, data);
+};
+
+// Constructor
+// Only set variables that are set by items passed in, otherwise set using prototype
+var wiggle = function wiggle(plot, data){
+	if(!data || !$.isArray(data)){ return 'Param: data is missing, An array required'; }
+	if(!plot){ return 'Param: plot is missing, a div to attach the svg is required'; }
+  this._data = data;
+  this._plot = plot;
+  this._xMin = plot._xDomain[0];
+  this._yMin = plot._yDomain[0];
+  this._rand = Math.floor((Math.random() * 100) + 100);
+  return this;
+};
+
+// Set defaults
+wiggle.prototype._skip = 0;
+wiggle.prototype._gain = 30;
+wiggle.prototype._xInt = 1;
+wiggle.prototype._yInt = 1;
+wiggle.prototype._duration = 5;
+wiggle.prototype._sampleRate = 1;
+wiggle.prototype._strokeWidth = 0.5;
+wiggle.prototype._color = 'black';
+wiggle.prototype._fillColor = 'black';
+wiggle.prototype._opacity = 0.4;
+
+//var s = wiggle.gain / wiggle.max;
+
+wiggle.prototype.skip = function(skip){
+	if(skip === undefined){ return this._skip; }
+	this._skip = skip;
+	return this;
+};
+
+wiggle.prototype.gain = function(gain){
+	if(gain === undefined){ return this._gain; }
+	this._gain = gain;
+	return this;
+};
+
+wiggle.prototype.max = function(max){
+	if(max === undefined){ return this._max; }
+	this._max = max;
+	return this;
+};
+
+wiggle.prototype.xMin = function(xMin){
+	if(xMin === undefined){ return this._xMin; }
+	this._xMin = xMin;
+	return this;
+};
+
+wiggle.prototype.yMin = function(yMin){
+	if(yMin === undefined){ return this._yMin; }
+	this._yMin = yMin;
+	return this;
+};
+
+wiggle.prototype.xInt = function(xInt){
+	if(xInt === undefined){ return this._xInt; }
+	this._xInt = xInt;
+	return this;
+};
+
+wiggle.prototype.yInt = function(yInt){
+	if(yInt === undefined){ return this._yInt; }
+	this._yInt = yInt;
+	return this;
+};
+
+wiggle.prototype.fillColor = function(color){
+	if(color === undefined){ return this._fillColor; }
+	this._fillColor = color;
+	return this;
+};
+
+wiggle.prototype.color = function(color){
+	if(color === undefined){ return this._color; }
+	this._color = color;
+	return this;
+};
+
+wiggle.prototype.strokeWidth = function(strokeWidth){
+	if(strokeWidth === undefined){ return this._strokeWidth; }
+	this._strokeWidth = strokeWidth;
+	return this;
+};
+
+wiggle.prototype.sampleRate = function(sampleRate){
+	if(sampleRate === undefined){ return this._sampleRate; }
+	this._sampleRate = sampleRate;
+	return this;
+};
+
+wiggle.prototype.duration = function(duration){
+	if(duration === undefined){ return this._duration; }
+	this._duration = duration;
+	return this;
+};
+
+wiggle.prototype.opacity = function(opacity){
+	if(opacity === undefined){ return this._opacity; }
+	this._opacity = opacity;
+	return this;
+};
+
+wiggle.prototype.lineFunc = function(k){
+	var plot = this._plot,
+			gain = this._gain,
+			xMin = this._xMin,
+			sampleRate = this._sampleRate,
+			yInt = this._yInt,
+			yMin = this._yMin;
+
+	return d3.svg.area()
+    .x(function (d) {
+      return plot._xScale(d * gain + xMin + k * sampleRate);
+    })
+    .y(function (d, i){
+      return plot._yScale(i * yInt + yMin);
+    })
+   	.interpolate('basis');
+};
+
+wiggle.prototype.areaFunc = function(k, mean){
+	var plot = this._plot,
+			gain = this._gain,
+			xMin = this._xMin,
+			sampleRate = this._sampleRate,
+			yMin = this._yMin,
+			yInt = this._yInt;
+
+	return d3.svg.area()
+	  .x(function (d, i) {
+	    return plot._xScale(mean * gain + xMin + k * sampleRate);
+	  })
+	  .y(function (d, i){
+	    return plot._yScale(i * yInt + yMin);
+	  })
+	 	.interpolate('basis');
+};
+
+wiggle.prototype.draw = function() {
+	for(var k = this._data.length - 1; k >= 0; k--){
+    if(this._skip === 0 || k % this._skip === 0){
+      var mean = d3.mean(this._data[k]); 
+
+      // Line function
+	    var line = this.lineFunc(k);
+	    var area = this.areaFunc(k, mean);
+
+      this._plot._svg.datum(this._data[k]);
+
+      this._plot._svg.append('clipPath')
+        .attr('id', 'clip-below' + this._rand + k)
+        .append('path')
+        .attr('d', area.x0(this._plot._width));
+
+      var plot = this._plot,
+      		gain = this._gain,
+      		xMin = this._xMin,
+      		sampleRate = this._sampleRate;
+
+      this._plot._svg.append('path')
+        .attr('id', 'area-below' + k)
+        .attr('clip-path', 'url(#clip-below' + this._rand + k)
+        .attr('fill', this._fillColor)
+        .style('opacity', this._opacity)
+        .attr('d', area.x0(function (d, i){ 
+          return plot._xScale(d * gain + xMin + k * sampleRate);
+        }));
+
+      this._plot._svg.append('path')
+        .attr('class', 'line' + k)
+        .attr('d', line(this._data[k]))
+        .attr('stroke', this._color)
+        .attr('stroke-width', this._strokeWidth)
+        .attr('fill', 'none');
+    }
+  }
+  return this;
+};
+
+wiggle.prototype.reDraw = function(data, xDomain, yDomain){
+
+	// Redraw the Axis
+	this._plot._xScale.domain(xDomain);
+	this._plot._yScale.domain(yDomain);
+		
+	this._plot._svg.select('.x.axis')
+		.transition()
+		.duration(this._duration)
+		.call(this._plot._xAxis)
+		.selectAll("text")  
+		.style("text-anchor", "start")
+    	.attr("transform", "rotate(-45)" );
+
+	this._plot._svg.select('.y.axis')
+		.transition()
+		.duration(this._duration)
+		.call(this._plot._yAxis);
+
+  for(var k = data.length - 1; k >= 0; k--){
+    if(this._skip === 0 || k % this._skip === 0){
+			var mean = d3.mean(data[k]); 
+      
+      this._plot._svg.select("#clip-below" + this._rand + k)
+        .remove()
+
+      var line = this.lineFunc(k);
+      var area = this.areaFunc(k, mean);
+
+      this._plot._svg.select(".line" + k)
+        .transition()
+        .duration(this._duration)
+        .attr('d', line(data[k]))
+        .ease("linear");
+
+      this._plot._svg.datum(data[k]);
+
+      this._plot._svg.append('clipPath')
+        .attr('id', 'clip-below' + this._rand + k)
+        .append('path')
+        .attr('d', area.x0(this._plot._width));
+        
+      var plot = this._plot,
+      		gain = this._gain,
+      		xMin = this._xMin,
+      		sampleRate = this._sampleRate;
+
+      this._plot._svg.select("#area-below" + k)
+        .attr('clip-path', 'url(#clip-below' + this._rand + k)
+        .transition()
+        .duration(this._duration)
+        .attr('d', area.x0(function (d, i){ 
+          return plot._xScale(d * gain + xMin + k * sampleRate);
+        }))
+        .ease('linear');
+    	} 
+		}
+  return this;
+};
+} (window));
