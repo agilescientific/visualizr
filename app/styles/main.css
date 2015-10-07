@@ -1,9 +1,16 @@
 .input-group {
   padding-bottom: 5px;
 }
+
+
 .tick line{
     opacity: 0.1;
 }
+
+canvas {
+  position: absolute;
+}
+
 
 .axis text {
   font: 10px sans-serif;
