@@ -31,12 +31,19 @@
   </div>
   <!-- QUICK START END -->
 
-  <!-- CONTRIBUTE -->
-  <div class="col-xs-12">
-    <h2>Contribute</h2>
-    <p>Build and work on G3 using <a href="gruntjs.com">Grunt</a></p>
-    <pre><code>// Fork G3 repo at <a href="https://github.com/agile-geoscience/g3">https://github.com/agile-geoscience/g3</a></br></br>// Build using Grunt </br>$ grunt build</br></br>// Submit pull request</code></pre>
-  </div>
+<!-- CONTRIBUTE -->
+<div class="col-xs-12">
+<h2>Contribute</h2>
+<p>Build and work on G3 using <a href="gruntjs.com">Grunt</a></p>
+<code>
+<pre>
+// Fork G3 repo at <a href="https://github.com/agile-geoscience/g3">https://github.com/agile-geoscience/g3</a>
+// Build using Grunt
+$ grunt build
+// Submit pull request
+</pre>
+</code>
+</div>
   <!-- CONTRIBUTE END -->
 
   <!-- PLOT -->
@@ -45,7 +52,13 @@
     <code>g3.plot</code>
     <h3>Example</h3>
     <p>Plots can have a width set explicitly or will size based off of their container div</p>
-    <pre><code class="javascript hljs" highlight-block><span class="hljs-keyword">var</span> myPlot = g3.plot(<span class="hljs-string">'.plot_div'</span>)</br>  .height(400)</br>  .xDomain([0, 500])</br>  .yDomain([0, 300])</br>  .draw();</code></pre>
+<pre>
+<code class="javascript hljs"><span class="hljs-keyword">var</span> myPlot = g3.plot(<span class="hljs-string">'plot_div'</span>)
+  .height(400)
+  .xDomain([0, 500])
+  .yDomain([0, 300])
+  .draw();
+</code></pre>
   </div>
   <div class="col-xs-12 plot_div">
   </div>
