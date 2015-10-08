@@ -418,7 +418,7 @@ $ grunt build
         <tr>
           <td>xTrans</td>
           <td>number</td>
-          <td><code>g3.plot.xDomain[0]</code></td>
+          <td>0</td>
           <td>Set the x-data translation</td>
         </tr>
         <tr>
@@ -430,7 +430,7 @@ $ grunt build
         <tr>
           <td>yTrans</td>
           <td>number</td>
-          <td><code>g3.plot.yDomain[0]</code></td>
+          <td>0</td>
           <td>Set the y-data translation</td>
         </tr>
         <tr>
@@ -550,23 +550,23 @@ $ grunt build
     <code>g3.horizon</code>
     <h3>Example</h3>
 <pre>// Get a cross section from the 2d array
-  <span class="hljs-keyword">var</span> arr = [];
-  for(<span class="hljs-keyword">var</span> i = 0; i &lt twoDArray.length; i++){
-    arr.push(twoDArray[i][0]);
-  }
+<span class="hljs-keyword">var</span> arr = [];
+for(<span class="hljs-keyword">var</span> i = 0; i &lt twoDArray.length; i++){
+  arr.push(twoDArray[i][0]);
+}
 
-  // Grab the min and max values from the array
-  <span class="hljs-keyword">var</span> max = d3.max(arr);
-  <span class="hljs-keyword">var</span> min = d3.min(arr);
+// Grab the min and max values from the array
+<span class="hljs-keyword">var</span> max = d3.max(arr);
+<span class="hljs-keyword">var</span> min = d3.min(arr);
 
-  <span class="hljs-keyword">var</span> horizonPlot = g3.plot('.horizon_plot_div')
-  .height(400)
-  .xDomain([0, twoDArray.length])
-  .yDomain([min, max])
-  .draw();
+<span class="hljs-keyword">var</span> horizonPlot = g3.plot('.horizon_plot_div')
+.height(400)
+.xDomain([0, twoDArray.length])
+.yDomain([min, max])
+.draw();
 
-  <span class="hljs-keyword">var</span> horizon = g3.horizon(horizonPlot, arr).draw();</pre>
-  </div>
+<span class="hljs-keyword">var</span> horizon = g3.horizon(horizonPlot, arr).draw();</pre>
+</div>
   <div class="col-xs-12 horizon_plot_div"></div>
   <!-- HORIZONS END -->
 
@@ -589,16 +589,58 @@ $ grunt build
       </thead>
       <tbody>
         <tr>
-          <td>gain</td>
+          <td>xMult</td>
           <td>number</td>
           <td>1</td>
-          <td>Set the gain of the data</td>
+          <td>Set the x multiplier of the data</td>
         </tr>
         <tr>
-          <td>colorScale</td>
-          <td><code>d3.scale()</code></td>
-          <td>n/a</td>
-          <td>Set the color scale of the image</td>
+          <td>yMult</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Set the y multiplier of the data</td>
+        </tr>
+        <tr>
+          <td>xTrans</td>
+          <td>number</td>
+          <td>0</td>
+          <td>Set the x-data translation</td>
+        </tr>
+        <tr>
+          <td>yTrans</td>
+          <td>number</td>
+          <td>0</td>
+          <td>Set the y-data translation</td>
+        </tr>
+        <tr>
+          <td>interplolate</td>
+          <td>string</td>
+          <td>'basis'</td>
+          <td>Set d3 interpolation type</td>
+        </tr>
+        <tr>
+          <td>color</td>
+          <td>hex | string</td>
+          <td>'green'</td>
+          <td>Set d3 interpolation type</td>
+        </tr>
+        <tr>
+          <td>strokeWidth</td>
+          <td>number</td>
+          <td>1.5</td>
+          <td>Set the width of the line</td>
+        </tr>
+        <tr>
+          <td>opacity</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Set the opacity of the line</td>
+        </tr>
+        <tr>
+          <td>duration</td>
+          <td>number</td>
+          <td>5</td>
+          <td>Set the duration of the redraw function</td>
         </tr>
         <tr>
           <td>reDraw</td>
