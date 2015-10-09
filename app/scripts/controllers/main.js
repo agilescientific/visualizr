@@ -65,6 +65,7 @@ angular.module('visualizrApp')
 				.height(400)
         .xDomain([0, data.data.length])
         .yDomain([min, max])
+        .margin(30, 40, 30, 30)
 				.draw();
 
 			var horizon = g3.horizon(horizonPlot, arr).draw();
