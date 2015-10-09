@@ -71,3 +71,18 @@ a, a:hover{
   margin: 30px 0;
 }
 
+.mobile-nav {
+  display: none;
+}
+@media screen and (max-width: 768px) { 
+  .mobile-nav {
+    display: block;
+  }
+  .navbar-right {
+    display: none;
+  }
+  .side-nav {
+    display: none;
+  }
+}
+
