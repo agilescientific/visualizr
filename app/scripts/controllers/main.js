@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('visualizrApp')
-	.controller('MainCtrl', function ($scope, $routeParams, $timeout) {
+	.controller('MainCtrl', function ($scope, $routeParams, $timeout, $location) {
+		$scope.path = 'started';
 		var myPlot = g3.plot('.plot_div')
 			.height(200)
 			.xDomain([0, 500])
@@ -70,6 +71,12 @@ angular.module('visualizrApp')
 
 			var horizon = g3.horizon(horizonPlot, arr).draw();
 		});
+
+		$scope.isActive = function(path){
+			console.log($location.url() == path);
+			console.log($location.url());
+			return $location.url() == path;
+		};
 
 		$scope.scrollTo = function(selector){
         if(jQuery('#' + selector).length == 1){

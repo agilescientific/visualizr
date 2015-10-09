@@ -1,11 +1,11 @@
 <div class="col-xs-3">
 <ul class="nav nav-pills nav-stacked nav-fixed">
-  <li class="active"><a href="#top">Getting Started</a></li>
-  <li><a href="#plots">Plot</a></li>
-  <li><a href="#logs">Log</a></li>
-  <li><a href="#wiggles">Wiggle</a></li>
-  <li><a href="#seismics">Seismic</a></li>
-  <li><a href="#horizons">Horizon</a></li>
+  <li ng-class="{ active: isActive('/#top')}"><a href="#top">Getting Started</a></li>
+  <li ng-class="{ active: isActive('/#plots')}"><a href="#plots">Plot</a></li>
+  <li ng-class="{ active: isActive('/#logs')}"><a href="#logs">Log</a></li>
+  <li ng-class="{ active: isActive('/#wiggles')}"><a href="#wiggles">Wiggle</a></li>
+  <li ng-class="{ active: isActive('/#seismics')}"><a href="#seismics">Seismic</a></li>
+  <li ng-class="{ active: isActive('/#horizons')}"><a href="#horizons">Horizon</a></li>
 </ul>
 </div>
 <div class="col-xs-9">
