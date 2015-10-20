@@ -499,8 +499,8 @@ $ grunt build
   .domain([-max, 0, max])
   .range(['#FF0000', '#FFF', '#0000FF']);
 
-<span class="hljs-keyword">var</span> seismic = g3.seismic(seismicPlot, twoDArray)
-  .colorScale(colorScale)
+<span class="hljs-keyword">var</span> seismic = g3.seismic(seismicPlot, [twoDArray])
+  .nDColorMap([colorScale])
   .draw();</pre>
   </div>
   <div class="col-xs-12 seismic_plot_div"></div>
@@ -531,16 +531,22 @@ $ grunt build
           <td>Set the gain of the data</td>
         </tr>
         <tr>
-          <td>colorScale</td>
-          <td><code>d3.scale()</code></td>
+          <td>nDColorMap</td>
+          <td>array</td>
           <td>n/a</td>
-          <td>Set the color scale of the image</td>
+          <td>Takes an array of d3 or g3 color scales</td>
+        </tr>
+        <tr>
+          <td>draw</td>
+          <td>function</td>
+          <td>n/a</td>
+          <td>Takes an array of 2d data arrays</td>
         </tr>
         <tr>
           <td>reDraw</td>
           <td>function</td>
           <td>n/a</td>
-          <td><code>canvas.reDraw(newDataArray)</code></td>
+          <td>Takes an array of 2d data arrays</td>
         </tr>
       </tbody>
     </table>

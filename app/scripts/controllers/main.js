@@ -48,8 +48,8 @@ angular.module('visualizrApp')
 	    	.domain([-max, 0, max])
 	    	.range(['#FF0000', '#FFF', '#0000FF']);
 
-			var seismic = g3.seismic(seismicPlot, data.data)
-			  .colorScale(colorScale)
+			var seismic = g3.seismic(seismicPlot, [data.data])
+			  .nDColorMap([colorScale])
 			  .draw();
 
 			// Get a cross section from the 2d array
