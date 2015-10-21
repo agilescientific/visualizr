@@ -72,9 +72,31 @@ angular.module('visualizrApp')
 			var horizon = g3.horizon(horizonPlot, arr).draw();
 		});
 
+		$.getJSON("seismic_3x2d.json", function(data){
+			var redScale = d3.scale.linear()
+				.domain([0, 1])
+				.range([d3.rgb(0,0,0), d3.rgb(255,0,0)]);
+
+			var blueScale = d3.scale.linear()
+				.domain([0, 1])
+				.range([d3.rgb(0,0,0), d3.rgb(0,0,255)]);
+
+			var greenScale = d3.scale.linear()
+				.domain([0, 1])
+				.range([d3.rgb(0,0,0), d3.rgb(0,255,0)]);
+
+			var colorScale = [redScale, greenScale, blueScale];
+
+			var logPlot = g3.plot('.rgb_plot_div')
+				.height(400)
+				.xDomain([0, data[0].length])
+				.yDomain([0, data[0][0].length])
+				.draw();
+
+			var seis = g3.seismic(logPlot, data).nDColorMap(colorScale).draw();
+		});
+
 		$scope.isActive = function(path){
-			console.log($location.url() == path);
-			console.log($location.url());
 			return $location.url() == path;
 		};
 

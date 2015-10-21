@@ -504,6 +504,32 @@ $ grunt build
   .draw();</pre>
   </div>
   <div class="col-xs-12 seismic_plot_div"></div>
+
+<div class="col-xs-12">
+<h3>RGB Blending Example</h3>
+  <pre class="javascript hljs"><span class="hljs-keyword">var</span> rgbBlendPlot = g3.plot(<span class="hljs-string">'.rgb_plot_div'</span>)
+  .height(400)
+  .xDomain([0, twoDArray.length - 1])
+  .yDomain([0, twoDArray[0].length - 1])
+  .draw();
+
+<span class="hljs-keyword">var</span> redScale = d3.scale.linear()
+  .domain([0, 1])
+  .range([d3.rgb(0, 0, 0), d3.rgb(255, 0, 0)]);
+
+<span class="hljs-keyword">var</span> greenScale = d3.scale.linear()
+  .domain([0, 1])
+  .range([d3.rgb(0, 0, 0), d3.rgb(0, 255, 0)]);
+
+<span class="hljs-keyword">var</span> blueScale = d3.scale.linear()
+  .domain([0, 1])
+  .range([d3.rgb(0, 0, 0), d3.rgb(0, 0, 255)]);
+
+<span class="hljs-keyword">var</span> rgbBlend = g3.seismic(rgbBlendPlot, [twoDArray0, twoDArray1, twoDArray2])
+  .nDColorMap([redScale, greenScale, blueScale])
+  .draw();</pre>
+  </div>
+  <div class="col-xs-12 rgb_plot_div"></div>
   <!-- SEISMIC END -->
 
   <!-- SEISMIC OPTIONS -->
